@@ -15,6 +15,9 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+var connectionAzureSignalR = "Endpoint= ;AccessKey= ";
+//builder.Services.AddSignalR().AddAzureSignalR(connectionAzureSignalR);
+
 builder.Services.AddSignalR();
 
 var app = builder.Build();
