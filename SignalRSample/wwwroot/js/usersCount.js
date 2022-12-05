@@ -3,6 +3,7 @@
 const connectionUserCount = new signalR
     .HubConnectionBuilder()
 //    .configureLogging(signalR.LogLevel.Information)
+    .withAutomaticReconnect()
     .withUrl("/hubs/userCount", signalR.HttpTransportType.WebSockets)
     .build()
 
@@ -30,11 +31,24 @@ function fulfilled() {
     //do something on start
     console.log("Connection to User Hub Succesful")
     newWindowLoadedClient()
+    document.getElementById("connectionState").innerText = "Connected"
 }
 
 
 function rejected() {
     //rejected logs
 }
+
+connectionUserCount.onclose((error) => {
+    document.getElementById("connectionState").innerText ="Disconnected"
+})
+
+connectionUserCount.onreconnected((connectionId) => {
+    document.getElementById("connectionState").innerText = "Connected"
+})
+
+connectionUserCount.onreconnecting((error) => {
+    document.getElementById("connectionState").innerText = "Reconnecting..."
+})
 
 connectionUserCount.start().then(fulfilled, rejected)
