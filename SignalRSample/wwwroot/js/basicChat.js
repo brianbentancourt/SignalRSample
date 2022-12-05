@@ -1,7 +1,7 @@
 ﻿
 const connectionChat = new signalR
     .HubConnectionBuilder()
-    .withUrl("/hubs/chat")
+    .withUrl("/hubs/basicchat")
     .build()
 
 document.getElementById("sendMessage").disabled = true
