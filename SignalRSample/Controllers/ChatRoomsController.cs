@@ -134,7 +134,9 @@ namespace SignalRSample.Controllers
             _context.ChatRoom.Remove(chatRoom);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            var room = await _context.ChatRoom.FirstOrDefaultAsync();
+
+            return Ok(new { deleted= id, selected = (room == null ? 0 : room.Id)});
         }
 
         private bool ChatRoomExists(int id)
